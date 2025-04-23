@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>VoltSphere Systems Chatbot</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #000;
+      margin: 0;
+      padding: 0;
+    }
+    header {
+      background: #001f3f;
+      color: #fff;
+      padding: 10px 0;
+      text-align: center;
+    }
+    marquee {
+      font-weight: bold;
+      background: #0074D9;
+      color: white;
+      padding: 8px;
+    }
+    #chatbox {
+      width: 90%;
+      max-width: 600px;
+      margin: 20px auto;
+      background: #111;
+      padding: 15px;
+      box-shadow: 0 0 10px rgba(255,255,255,0.1);
+    }
+    .message {
+      margin: 10px 0;
+    }
+    .user {
+      text-align: right;
+      color: #1E90FF;
+    }
+    .bot {
+      text-align: left;
+      color: #EEE;
+    }
+    input[type="text"] {
+      width: 80%;
+      padding: 10px;
+      margin-right: 5px;
+      background: #222;
+      color: #fff;
+      border: 1px solid #444;
+    }
+    button {
+      padding: 10px;
+      background: #0074D9;
+      color: #fff;
+      border: none;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>VoltSphere Systems</h1>
+  </header>
+  <marquee behavior="scroll" direction="left">Welcome to VoltSphere Systems - Ask us anything about physics, electricity, or our services!</marquee>
+  <div id="chatbox">
+    <div class="message bot">Hello! I'm VoltSphere AI. How can I assist you today?</div>
+  </div>
+  <div style="text-align: center;">
+    <input type="text" id="userInput" placeholder="Ask a question...">
+    <button onclick="sendMessage()">Send</button>
+  </div>
+
+  <script>
+    const chatbox = document.getElementById('chatbox');
+
+    function sendMessage() {
+      const input = document.getElementById('userInput');
+      const userMessage = input.value;
+      if (userMessage.trim() === '') return;
+
+      appendMessage(userMessage, 'user');
+      input.value = '';
+
+      const response = getBotResponse(userMessage);
+      setTimeout(() => appendMessage(response, 'bot'), 500);
+    }
+
+    function appendMessage(message, sender) {
+      const messageDiv = document.createElement('div');
+      messageDiv.className = `message ${sender}`;
+      messageDiv.innerText = message;
+      chatbox.appendChild(messageDiv);
+      chatbox.scrollTop = chatbox.scrollHeight;
+    }
+
+    function getBotResponse(input) {
+      input = input.toLowerCase();
+
+      if (input.includes('physics')) return "Physics is the study of matter, energy, and the interactions between them. It includes topics such as mechanics, thermodynamics, quantum physics, and relativity.";
+      if (input.includes('laws of motion')) return "The three laws of motion, formulated by Newton, describe the relationship between a body and the forces acting on it, and the body's motion in response to those forces.";
+      if (input.includes('thermodynamics')) return "Thermodynamics is the branch of physics that deals with heat, work, and the forms of energy transfer.";
+      if (input.includes('quantum')) return "Quantum physics studies the behavior of matter and energy on the atomic and subatomic levels.";
+      if (input.includes('relativity')) return "Einstein's theory of relativity describes how time and space are linked for objects moving at a constant speed in a straight line.";
+      if (input.includes('electricity')) return "Electricity is the flow of electric charge. It's essential for modern technology.";
+      if (input.includes('voltsphere services')) return "VoltSphere Systems offers smart energy solutions, consulting, and custom-built electronics.";
+      if (input.includes('hello') || input.includes('hi')) return "Hi there! How can I help you today?";
+
+      return "I'm not sure about that, but I can help with questions on physics, electricity, or VoltSphere's services!";
+    }
+  </script>
+</body>
+</html>
